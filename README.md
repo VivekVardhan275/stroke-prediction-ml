@@ -44,6 +44,6 @@ Future work should incorporate **techniques to handle data imbalance**, such as 
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/yourusername/stroke-prediction-ml.git
+git clone https://github.com/VivekVardhan275/stroke-prediction-ml.git
 cd stroke-prediction-ml
 pip install -r requirements.txt
