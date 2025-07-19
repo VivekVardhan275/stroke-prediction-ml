@@ -45,7 +45,7 @@ def preprocess_input(gender, age, hypertension, heart_disease,
 
 st.title("🧠 Stroke Prediction App")
 st.markdown("Predict the likelihood of a patient having a stroke using classical ML models.")
-st.markdown('''In our experiments, Logistic Regression consistently outperformed other classical machine learning models in correctly identifying both stroke and non-stroke cases. While more complex models like SVM, k-NN, Naïve Bayes, Random Forest, and XGBoost tended to predict only the dominant class (i.e., "No Stroke") — likely due to the inherent class imbalance — Logistic Regression demonstrated the best balance between sensitivity (recall) and specificity, especially after handling imbalance with techniques like SMOTE.''')
+st.markdown('''In our experiments, Logistic Regression consistently outperformed other classical machine learning models in correctly identifying both stroke and non-stroke cases. While more complex models like SVM, k-NN, Naïve Bayes, Random Forest, and XGBoost tended to predict only the dominant class (i.e., "No Stroke") — likely due to the inherent class imbalance — Logistic Regression demonstrated the best balance between sensitivity (recall) and specificity, especially after handling imbalance with techniques like SMOTE. Hence we recommend using Logistic Regression for stroke prediction tasks.''')
 selected_model_name = st.sidebar.selectbox("Choose Model", list(models.keys()))
 model = load_model(models[selected_model_name])
 
