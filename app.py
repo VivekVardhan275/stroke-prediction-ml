@@ -52,15 +52,58 @@ heart_disease = st.selectbox("Heart Disease", ['No', 'Yes'])
 avg_glucose_level = st.number_input("Average Glucose Level", min_value=55.0, max_value=300.0, value=55.0)
 bmi = st.number_input("BMI", min_value=10.0, max_value=100.0, value=10.0)
 smoking_status = st.selectbox("Smoking Status", ["non-smoker", "smoker"])
+input = [gender, age, hypertension, heart_disease,
+         avg_glucose_level, bmi, smoking_status]
+def get_recommendations(user_input):
+    recommendations = []
+
+    # Unpack user inputs
+    gender, age, hypertension, heart_disease, avg_glucose_level, bmi, smoking_status = user_input
+
+    # Rule: High BP
+    if hypertension == 'Yes':
+        recommendations.append("🔴 Manage Hypertension: Monitor your blood pressure regularly and follow prescribed medication or lifestyle changes.")
+
+    # Rule: Heart disease
+    if heart_disease == 'Yes':
+        recommendations.append("❤️ Heart Health: Having heart disease increases stroke risk. Regular cardiology checkups and lifestyle changes are crucial.")
+
+    # Rule: High glucose
+    if avg_glucose_level > 140:
+        recommendations.append("🍬 Control Blood Sugar: Elevated glucose levels can damage blood vessels. Follow a diabetic-friendly diet and monitor sugar levels.")
+
+    # Rule: High BMI
+    if bmi > 25:
+        recommendations.append("⚖️ Maintain a Healthy Weight: Your BMI indicates overweight or obesity. Adopting a healthy diet and exercise routine is important.")
+
+    # Rule: Smoker
+    if smoking_status.lower() in ['smoker']:
+        recommendations.append("🚭 Quit Smoking: Smoking is a major stroke risk factor. Quitting improves your vascular health quickly.")
+
+    # Rule: Age over 60
+    if age >= 60:
+        recommendations.append("🧓 Senior Care: Being over 60 increases stroke risk. Regular health checkups and early intervention are key.")
+
+
+    if not recommendations:
+        recommendations.append("✅ You currently show no major lifestyle risk indicators. Maintain a healthy routine and monitor key vitals regularly.")
+
+    return recommendations
 
 if st.button("Predict Stroke Risk"):
     input_data = preprocess_input(gender, age, hypertension, heart_disease,
                                    avg_glucose_level, bmi, smoking_status)
 
     prediction = model.predict(input_data)[0]
-    prob = model.predict_proba(input_data)[0][1] if hasattr(model, "predict_proba") else None
-
     if prediction == 1:
-        st.error(f"⚠️ High Risk of Stroke! ({'Probability: {:.2f}'.format(prob) if prob else 'Model output: 1'})")
+        st.warning("⚠️ The model predicts that you may be at risk for stroke.")
+        
+        st.markdown("### 🛡️ Personalized Health Recommendations")
+        tips = get_recommendations(input)
+        for tip in tips:
+            st.markdown(f"- {tip}")
+
     else:
-        st.success(f"✅ Low Risk of Stroke. ({'Probability: {:.2f}'.format(prob) if prob else 'Model output: 0'})")
+        st.success("✅ The model predicts you are not at immediate risk of stroke.")
+        st.markdown("Keep maintaining a healthy lifestyle. Stay proactive with regular checkups!")
+
