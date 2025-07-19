@@ -5,5 +5,3 @@ xgboost
 numpy
 matplotlib
 seaborn
-pickle
-warnings
