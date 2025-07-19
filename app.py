@@ -49,8 +49,8 @@ gender = st.selectbox("Gender", ["Male", "Female"])
 age = st.slider("Age", 1, 100, 30)
 hypertension = st.selectbox("Hypertension", ['No', 'Yes'])
 heart_disease = st.selectbox("Heart Disease", ['No', 'Yes'])
-avg_glucose_level = st.number_input("Average Glucose Level", min_value=55.0, max_value=300.0, value=100.0)
-bmi = st.number_input("BMI", min_value=10.0, max_value=100.0, value=25.0)
+avg_glucose_level = st.number_input("Average Glucose Level", min_value=55.0, max_value=300.0, value=55.0)
+bmi = st.number_input("BMI", min_value=10.0, max_value=100.0, value=10.0)
 smoking_status = st.selectbox("Smoking Status", ["non-smoker", "smoker"])
 
 if st.button("Predict Stroke Risk"):
