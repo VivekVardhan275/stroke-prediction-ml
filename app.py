@@ -14,18 +14,15 @@ def load_model(path):
     with open(path, 'rb') as f:
         return pickle.load(f)
 def preprocess_input(gender, age, hypertension, heart_disease,
-                     ever_married, work_type,
                      avg_glucose_level, bmi, smoking_status):
     hypertension_val = 1 if hypertension == 'Yes' else 0
     heart_disease_val = 1 if heart_disease == 'Yes' else 0
     scalar = pickle.load(open("notebooks/models/scaler.pkl", "rb"))
     gender_le = pickle.load(open("notebooks/models/gender_le.pkl", "rb"))
-    ever_married_le = pickle.load(open("notebooks/models/ever_married_le.pkl", "rb"))
-    work_type_le = pickle.load(open("notebooks/models/work_type_le.pkl", "rb"))
+
     smoking_status_le = pickle.load(open("notebooks/models/smoking_status_le.pkl", "rb"))
     gender_encoded = gender_le.transform([gender])[0]
-    ever_married_encoded = ever_married_le.transform([ever_married])[0]
-    work_type_encoded = work_type_le.transform([work_type])[0]
+
     smoking_status_encoded = smoking_status_le.transform([smoking_status])[0]
     numerical_array = np.array([[age, hypertension_val, heart_disease_val, avg_glucose_level, bmi]])
     scaled_numerical = scalar.transform(numerical_array)[0]
@@ -34,8 +31,6 @@ def preprocess_input(gender, age, hypertension, heart_disease,
         scaled_numerical[0],  # scaled age
         scaled_numerical[1],  # scaled hypertension
         scaled_numerical[2],  # scaled heart_disease
-        ever_married_encoded,
-        work_type_encoded,
         scaled_numerical[3],  # scaled avg_glucose_level
         scaled_numerical[4],  # scaled bmi
         smoking_status_encoded
@@ -54,15 +49,12 @@ gender = st.selectbox("Gender", ["Male", "Female"])
 age = st.slider("Age", 1, 100, 30)
 hypertension = st.selectbox("Hypertension", ['No', 'Yes'])
 heart_disease = st.selectbox("Heart Disease", ['No', 'Yes'])
-ever_married = st.selectbox("Ever Married", ['No', 'Yes'])
-work_type = st.selectbox("Work Type", ["Private", "Self Employed", "Government Job", "Children", "Never Worked"])
 avg_glucose_level = st.number_input("Average Glucose Level", min_value=55.0, max_value=300.0, value=100.0)
 bmi = st.number_input("BMI", min_value=10.0, max_value=100.0, value=25.0)
 smoking_status = st.selectbox("Smoking Status", ["non-smoker", "smoker"])
 
 if st.button("Predict Stroke Risk"):
     input_data = preprocess_input(gender, age, hypertension, heart_disease,
-                                   ever_married, work_type,
                                    avg_glucose_level, bmi, smoking_status)
 
     prediction = model.predict(input_data)[0]
