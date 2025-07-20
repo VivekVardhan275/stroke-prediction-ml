@@ -69,6 +69,17 @@ While XGBoost stood out in terms of raw predictive accuracy, models like Logisti
 In future work, combining these classical models with advanced imbalance-handling techniques or building ensemble systems that maximize both precision and recall could significantly enhance stroke prediction systems for real-world applications.
 
 ---
+## Prediction Results Using Logistic Regression Model (Stable model compared to others)
+
+| ID | Input Summary                                                               | Your Model's Prediction | Interpretation                                                                |
+| -- | --------------------------------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------- |
+| 1  | 67M, Hypertension + Heart Disease, Glucose 202.4, BMI 32.1, Non-smoker      | **1**                   | ✅ High risk – this seems like a correct prediction given strong risk factors. |
+| 2  | 45F, No Hypertension/Heart Disease, Glucose 95.7, BMI 27.8, Smoker          | **0**                   | ✅ Low-to-moderate risk – prediction seems appropriate.                        |
+| 3  | 73M, Hypertension, No Heart Disease, Glucose 156.2, BMI 30.5, Former smoker | **1**                   | ✅ Elevated risk – prediction aligns well with known risk factors.             |
+| 4  | 29F, Healthy profile, Glucose 82.3, BMI 22.4, Non-smoker                    | **0**                   | ✅ Very low risk – accurate prediction.                                        |
+| 5  | 58F, Hypertension + Heart Disease, Glucose 178.9, BMI 34.6, Smoker          | **1**                   | ✅ High risk – strong combination of risk indicators, good prediction.         |
+
+---
 
 ## 📦 Installation
 
@@ -76,3 +87,4 @@ In future work, combining these classical models with advanced imbalance-handlin
 git clone https://github.com/VivekVardhan275/stroke-prediction-ml.git
 cd stroke-prediction-ml
 pip install -r requirements.txt
+```
